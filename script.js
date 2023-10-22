@@ -38,3 +38,60 @@ function getRecommendations(url) {
     });
 }
 
+function showMovies(data) {
+  main.innerHTML = "";
+  data.forEach((movie) => {
+    const { title, poster_path, vote_average, overview } = movie;
+    const movieEl = document.createElement("div");
+    movieEl.classList.add("movie");
+    movieEl.innerHTML = `
+        <img src="${IMG_URL + poster_path}" alt="${title}">
+        <div class="movie-info">
+                <h3>${title}</h3>
+                <span class="${getColor(vote_average)}">${
+      Math.round(vote_average * 10) / 10
+    }</span>
+            </div>
+            <div class="overview">
+                <h3>Overview</h3>
+                ${overview}
+        </div>
+        `;
+
+    main.appendChild(movieEl);
+  });
+}
+
+function showRecommendations(data) {
+  recommendations.innerHTML = "";
+  data.forEach((movie) => {
+    const { title, poster_path, vote_average, overview } = movie;
+    const movieEl = document.createElement("div");
+    movieEl.classList.add("movie");
+    movieEl.innerHTML = `
+        <img src="${IMG_URL + poster_path}" alt="${title}">
+        <div class="movie-info">
+                <h3>${title}</h3>
+                <span class="${getColor(vote_average)}">${
+      Math.round(vote_average * 10) / 10
+    }</span>
+            </div>
+            <div class="overview">
+                <h3>Overview</h3>
+                ${overview}
+        </div>
+        `;
+
+    recommendations.appendChild(movieEl);
+  });
+}
+
+function getColor(vote) {
+  if (vote >= 8) {
+    return "green";
+  } else if (vote >= 5) {
+    return "orange";
+  } else {
+    return "red";
+  }
+}
